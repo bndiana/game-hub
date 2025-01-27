@@ -1,6 +1,7 @@
 // import { useEffect, useState } from "react";
 // import apiClient from "../services/api/client";
 // import { CanceledError } from "axios";
+import { GameQuery } from "../App";
 import useData from "./useData";
 import { Genre } from "./useGenre";
 
@@ -52,18 +53,25 @@ export interface Game {
 // };
 
 const useGames = (
-  selectedGenre: Genre | null,
-  selectedPlatform: Platform | null
+  // selectedGenre: Genre | null,
+  // selectedPlatform: Platform | null,
+  gameQuery: GameQuery
 ) =>
   useData<Game>(
     "/games",
     {
       params: {
-        genres: selectedGenre?.id,
-        platforms: selectedPlatform?.id,
+        // genres: selectedGenre?.id,
+        // platforms: selectedPlatform?.id,
+        genres: gameQuery.genre?.id,
+        platforms: gameQuery.platform?.id,
+        ordering: gameQuery.sortOrder,
       },
     },
-    [selectedGenre?.id, selectedPlatform?.id]
+    [
+      // selectedGenre?.id, selectedPlatform?.id
+      gameQuery,
+    ]
   );
 
 export default useGames;
